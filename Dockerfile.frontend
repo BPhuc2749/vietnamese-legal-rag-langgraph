@@ -1,0 +1,19 @@
+FROM python:3.11-slim
+
+ENV PYTHONUNBUFFERED=1 \
+    PIP_NO_CACHE_DIR=1
+
+WORKDIR /app
+
+# Ghim starlette<1.0.0 và huggingface_hub<0.26.0 để tương thích hoàn toàn với Gradio 4.x
+RUN pip install --upgrade pip && \
+    pip install gradio==4.44.1 requests "huggingface_hub<0.26.0" "starlette<1.0.0"
+
+# Copy source code giao diện
+COPY app/ ./app/
+
+# Mở cổng Gradio
+EXPOSE 7860
+
+# Khởi chạy Gradio
+CMD ["python", "app/gradio_app.py"]

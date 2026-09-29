@@ -1,0 +1,31 @@
+FROM python:3.11-slim
+
+# Thiết lập môi trường tối ưu cho Python trong Docker
+ENV PYTHONUNBUFFERED=1 \
+    PYTHONDONTWRITEBYTECODE=1 \
+    PIP_NO_CACHE_DIR=1
+
+WORKDIR /app
+
+# Cài đặt gcc/g++ và curl cần thiết để build các gói C++ (như underthesea, pypdf)
+RUN apt-get update && apt-get install -y --no-install-recommends \
+    build-essential \
+    curl \
+    && rm -rf /var/lib/apt/lists/*
+
+# Cài đặt dependencies trước để tận dụng Docker layer cache
+COPY requirements.txt .
+RUN pip install --upgrade pip && pip install -r requirements.txt
+
+# Copy source code app vào container
+COPY app/ ./app/
+
+# Mở cổng API
+EXPOSE 8000
+
+# Healthcheck đảm bảo FastAPI đã khởi động và nạp xong toàn bộ Model vào RAM
+HEALTHCHECK --interval=30s --timeout=15s --start-period=60s --retries=3 \
+  CMD curl -f http://localhost:8000/docs || exit 1
+
+# Khởi chạy server FastAPI
+CMD ["uvicorn", "app.main:app", "--host", "0.0.0.0", "--port", "8000"]

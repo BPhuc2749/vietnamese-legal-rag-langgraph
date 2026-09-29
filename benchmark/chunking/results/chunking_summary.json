@@ -1,0 +1,15 @@
+{
+    "questions": 80,
+    "fixed": {
+        "context_precision": 0.3341319444132077,
+        "context_recall": 0.7075
+    },
+    "metadata": {
+        "context_precision": 0.4609002975752145,
+        "context_recall": 0.7645833333333334
+    },
+    "improvement": {
+        "context_precision_%": 37.93960897232783,
+        "context_recall_%": 8.068315665488816
+    }
+}

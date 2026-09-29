@@ -1,0 +1,24 @@
+# Git & Môi trường ảo
+.git/
+.gitignore
+.github/
+venv/
+.venv/
+env/
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+
+# Bỏ qua tài liệu, biểu đồ và file test (không cần thiết trong container chạy live)
+benchmark/
+tests/
+docs/
+*.png
+*.jpg
+*.md
+.env.example
+
+# Vector store và data sẽ được nạp qua Volume Mount thay vì copy cứng vào image
+vector_store/
+data/
