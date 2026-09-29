@@ -311,3 +311,10 @@ Never:
 - rewrite Git history
 - merge branches automatically
 - commit secrets
+## Communication
+
+Communicate task plans, implementation summaries, warnings, and final reports
+in Vietnamese unless explicitly requested otherwise.
+
+Keep code identifiers, library names, commands, error messages, and technical
+terms in their original form when appropriate.
