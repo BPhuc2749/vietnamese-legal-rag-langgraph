@@ -33,3 +33,16 @@ temp/
 # Private / local data
 data/
 vector_store/
+
+# Private benchmark artifacts
+benchmark/chunking/results/chunking_progress.json
+benchmark/chunking/results/chunking_results.json
+
+benchmark/reranker/results/answer_benchmark_reranker.json
+benchmark/reranker/results/answer_progress.json
+benchmark/reranker/results/llm_evaluation.json
+benchmark/reranker/results/progress.json
+benchmark/reranker/results/retrieval_results.json
+
+benchmark/reranker/results/comparison/*_rankings*.json
+benchmark/reranker/results/comparison/topk_sensitivity.json
