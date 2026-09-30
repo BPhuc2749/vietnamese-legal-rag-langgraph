@@ -1,0 +1,208 @@
+{
+  "schema_version": 2,
+  "created_at_utc": "2026-09-30T03:00:49.386222+00:00",
+  "comparison_scope": "Two complete reranker configurations with different underlying models, evaluated on identical saved candidate pools.",
+  "top_k": 4,
+  "limit": 5,
+  "input_validation": {
+    "dataset_rows": 80,
+    "candidate_rows": 80,
+    "selected_rows": 5,
+    "selected_candidates": 36,
+    "all_candidates": 664,
+    "row_alignment_valid": true,
+    "dataset_sha256": "5f0d43968791152a66bcfc1ff1ad582a752194451ae493a2481139d27bf72df6",
+    "candidate_pool_sha256": "6f68f7a52aa2bb86c44669ffb3c027932b6ac0927c8a68106a7422c8e266d83c"
+  },
+  "configurations": {
+    "crossencoder": {
+      "implementation": "sentence_transformers.CrossEncoder",
+      "model": "BAAI/bge-reranker-v2-m3",
+      "backend": "PyTorch",
+      "device": "cuda:0",
+      "batch_size": 16,
+      "cuda_available": true,
+      "cuda_runtime_version": "13.0",
+      "cuda_device_name": "NVIDIA GeForce RTX 5060 Laptop GPU",
+      "cpu_fallback_for_smoke_test": false
+    },
+    "flashrank": {
+      "implementation": "flashrank.Ranker",
+      "model": "ms-marco-MultiBERT-L-12",
+      "backend": "ONNX Runtime",
+      "device": "cpu",
+      "max_length": 512,
+      "cache_location": "system temporary directory",
+      "onnx_providers": [
+        "CPUExecutionProvider"
+      ]
+    }
+  },
+  "configuration_summary": {
+    "crossencoder": {
+      "model": "BAAI/bge-reranker-v2-m3",
+      "implementation": "sentence_transformers.CrossEncoder",
+      "backend": "PyTorch",
+      "device": "cuda:0",
+      "mean_latency_seconds_per_query": 0.3944644200000312,
+      "median_latency_seconds_per_query": 0.3949426000000358,
+      "p95_latency_seconds_per_query": 0.5134361000000354,
+      "quality_metrics": {
+        "hit_rate_at_4": 0.8,
+        "expected_document_recall_at_4": 0.8,
+        "precision_at_4": 0.65,
+        "mrr_at_4": 0.8,
+        "binary_ndcg_at_4": 0.7006517072504372,
+        "evidence_coverage_at_4": 0.8
+      }
+    },
+    "flashrank": {
+      "model": "ms-marco-MultiBERT-L-12",
+      "implementation": "flashrank.Ranker",
+      "backend": "ONNX Runtime",
+      "device": "cpu",
+      "mean_latency_seconds_per_query": 0.8960389599999872,
+      "median_latency_seconds_per_query": 0.9035104999999248,
+      "p95_latency_seconds_per_query": 1.0034412999999631,
+      "quality_metrics": {
+        "hit_rate_at_4": 0.8,
+        "expected_document_recall_at_4": 0.8,
+        "precision_at_4": 0.7,
+        "mrr_at_4": 0.8,
+        "binary_ndcg_at_4": 0.7530721273977243,
+        "evidence_coverage_at_4": 0.2
+      }
+    }
+  },
+  "execution_environments": {
+    "crossencoder": {
+      "python_version": "3.11.9",
+      "python_implementation": "CPython",
+      "platform": "Windows-10-10.0.26200-SP0",
+      "processor": "Intel64 Family 6 Model 183 Stepping 1, GenuineIntel",
+      "logical_cpu_count": 20,
+      "torch_version": "2.13.0+cu130",
+      "sentence_transformers_version": "5.7.0",
+      "flashrank_version": "0.2.10",
+      "torch_num_threads": 14,
+      "torch_num_interop_threads": 14,
+      "torch_cuda_available": true,
+      "torch_cuda_version": "13.0",
+      "torch_cuda_device_count": 1,
+      "torch_cuda_device_name": "NVIDIA GeForce RTX 5060 Laptop GPU",
+      "thread_environment": {
+        "OMP_NUM_THREADS": null,
+        "MKL_NUM_THREADS": null,
+        "OPENBLAS_NUM_THREADS": null,
+        "NUMEXPR_NUM_THREADS": null
+      }
+    },
+    "flashrank": {
+      "python_version": "3.11.9",
+      "python_implementation": "CPython",
+      "platform": "Windows-10-10.0.26200-SP0",
+      "processor": "Intel64 Family 6 Model 183 Stepping 1, GenuineIntel",
+      "logical_cpu_count": 20,
+      "torch_version": "2.13.0+cu130",
+      "sentence_transformers_version": "5.7.0",
+      "flashrank_version": "0.2.10",
+      "torch_num_threads": 14,
+      "torch_num_interop_threads": 14,
+      "torch_cuda_available": true,
+      "torch_cuda_version": "13.0",
+      "torch_cuda_device_count": 1,
+      "torch_cuda_device_name": "NVIDIA GeForce RTX 5060 Laptop GPU",
+      "thread_environment": {
+        "OMP_NUM_THREADS": null,
+        "MKL_NUM_THREADS": null,
+        "OPENBLAS_NUM_THREADS": null,
+        "NUMEXPR_NUM_THREADS": null
+      }
+    }
+  },
+  "quality_metrics": {
+    "crossencoder": {
+      "hit_rate_at_4": 0.8,
+      "expected_document_recall_at_4": 0.8,
+      "precision_at_4": 0.65,
+      "mrr_at_4": 0.8,
+      "binary_ndcg_at_4": 0.7006517072504372,
+      "evidence_coverage_at_4": 0.8
+    },
+    "flashrank": {
+      "hit_rate_at_4": 0.8,
+      "expected_document_recall_at_4": 0.8,
+      "precision_at_4": 0.7,
+      "mrr_at_4": 0.8,
+      "binary_ndcg_at_4": 0.7530721273977243,
+      "evidence_coverage_at_4": 0.2
+    }
+  },
+  "quality_metric_query_counts": {
+    "crossencoder": {
+      "hit_rate_at_4": 5,
+      "expected_document_recall_at_4": 5,
+      "precision_at_4": 5,
+      "mrr_at_4": 5,
+      "binary_ndcg_at_4": 5,
+      "evidence_coverage_at_4": 5
+    },
+    "flashrank": {
+      "hit_rate_at_4": 5,
+      "expected_document_recall_at_4": 5,
+      "precision_at_4": 5,
+      "mrr_at_4": 5,
+      "binary_ndcg_at_4": 5,
+      "evidence_coverage_at_4": 5
+    }
+  },
+  "latency_metrics": {
+    "crossencoder": {
+      "model_load_time_seconds": 8.807262100000003,
+      "warmup_time_seconds": 0.6665939000000662,
+      "total_rerank_time_seconds": 1.9723221000001558,
+      "mean_latency_seconds_per_query": 0.3944644200000312,
+      "median_latency_seconds_per_query": 0.3949426000000358,
+      "min_latency_seconds_per_query": 0.24689580000006117,
+      "max_latency_seconds_per_query": 0.5134361000000354,
+      "p95_latency_seconds_per_query": 0.5134361000000354
+    },
+    "flashrank": {
+      "model_load_time_seconds": 0.5122771999999713,
+      "warmup_time_seconds": 0.8705941000000621,
+      "total_rerank_time_seconds": 4.480194799999936,
+      "mean_latency_seconds_per_query": 0.8960389599999872,
+      "median_latency_seconds_per_query": 0.9035104999999248,
+      "min_latency_seconds_per_query": 0.7249236999999766,
+      "max_latency_seconds_per_query": 1.0034412999999631,
+      "p95_latency_seconds_per_query": 1.0034412999999631
+    }
+  },
+  "quality_retention_flashrank_over_crossencoder": {
+    "expected_document_recall_at_4": 1.0,
+    "evidence_coverage_at_4": 0.25,
+    "mrr_at_4": 1.0
+  },
+  "latency_tradeoff": {
+    "mean_latency_reduction_seconds_per_query": -0.501574539999956,
+    "mean_latency_reduction_percent": -127.1533032053731,
+    "crossencoder_over_flashrank_mean_latency_ratio": 0.4402313265486099
+  },
+  "latency_comparability": {
+    "same_device": false,
+    "same_backend": false,
+    "hardware_equivalent_benchmark": false,
+    "note": "Latency is reported with each reranker's actual execution environment. Do not interpret it as hardware-equivalent when the device or backend differs."
+  },
+  "quality_comparability": {
+    "direct_comparison_valid": true,
+    "note": "Both rerankers were validated against identical queries, candidate IDs, candidate ordering, and candidate fingerprints."
+  },
+  "limitations": [
+    "Expected-document matching is a proxy relevance label and is not human-labelled chunk relevance. Questions without expected document labels are excluded from document-based metrics.",
+    "Precision@4 and binary nDCG@4 inherit the same document-level proxy limitation and may reward multiple chunks from one document.",
+    "Evidence Coverage@4 uses normalized exact containment overlap; it does not measure semantic equivalence. Questions without evidence passages are excluded.",
+    "The comparison attributes results to the complete model plus implementation configuration, not solely to either framework.",
+    "Rerankers cannot recover relevant evidence that is absent from the saved retrieval candidate pool."
+  ]
+}

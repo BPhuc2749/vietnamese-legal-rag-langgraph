@@ -1,3 +1,6 @@
+import tempfile
+from pathlib import Path
+
 from langchain_google_genai import ChatGoogleGenerativeAI
 from langchain_huggingface import HuggingFaceEmbeddings
 # from sentence_transformers import CrossEncoder
@@ -29,7 +32,8 @@ class ModelManager:
         #     settings.reranker_model,
         # )
         self.reranker = Ranker(
-         model_name=settings.reranker_model,
+            model_name=settings.reranker_model,
+            cache_dir=str(Path(tempfile.gettempdir()) / "legal-rag-flashrank"),
         )
 
     def get_llm(self):
