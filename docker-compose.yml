@@ -1,5 +1,3 @@
-version: '3.8'
-
 services:
   backend:
     build:
@@ -12,12 +10,11 @@ services:
     env_file:
       - .env
     volumes:
-      # Ánh xạ vector_store và data từ máy thật vào container
       - ./app:/app/app
       - ./vector_store:/app/vector_store
       - ./data:/app/data
-    healthcheck:
-      disable: true   # <--- VÔ HIỆU HÓA HEALTHCHECK ĐỂ KHÔNG BỊ GIẾT
+      - huggingface_cache:/root/.cache/huggingface
+      - flashrank_cache:/tmp/legal-rag-flashrank
     networks:
       - rag_network
 
@@ -30,12 +27,18 @@ services:
     ports:
       - "7860:7860"
     environment:
-      - API_URL=http://backend:8000/api/v1/chat/streaming
+      API_URL: http://backend:8000/api/v1/chat/streaming
     depends_on:
-      - backend       # <--- ĐỢI BACKEND CHẠY THƯỜNG, KHÔNG ÉP HEALTHCHECK
+      backend:
+        condition: service_healthy
+        restart: true
     networks:
       - rag_network
 
 networks:
   rag_network:
     driver: bridge
+
+volumes:
+  huggingface_cache:
+  flashrank_cache:

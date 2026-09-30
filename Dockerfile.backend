@@ -15,7 +15,9 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
 
 # Cài đặt dependencies trước để tận dụng Docker layer cache
 COPY requirements.txt .
-RUN pip install --upgrade pip && pip install -r requirements.txt
+RUN pip install --upgrade pip && \
+    pip install --index-url https://download.pytorch.org/whl/cpu torch && \
+    pip install -r requirements.txt
 
 # Copy source code app vào container
 COPY app/ ./app/
@@ -24,7 +26,7 @@ COPY app/ ./app/
 EXPOSE 8000
 
 # Healthcheck đảm bảo FastAPI đã khởi động và nạp xong toàn bộ Model vào RAM
-HEALTHCHECK --interval=30s --timeout=15s --start-period=60s --retries=3 \
+HEALTHCHECK --interval=30s --timeout=15s --start-period=1800s --retries=3 \
   CMD curl -f http://localhost:8000/docs || exit 1
 
 # Khởi chạy server FastAPI

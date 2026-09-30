@@ -15,5 +15,8 @@ COPY app/ ./app/
 # Mở cổng Gradio
 EXPOSE 7860
 
+HEALTHCHECK --interval=30s --timeout=10s --start-period=15s --retries=3 \
+  CMD python -c "import urllib.request; urllib.request.urlopen('http://localhost:7860/', timeout=5)" || exit 1
+
 # Khởi chạy Gradio
 CMD ["python", "app/gradio_app.py"]
