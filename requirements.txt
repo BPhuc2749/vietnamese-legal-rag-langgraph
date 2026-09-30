@@ -7,6 +7,7 @@ fastapi>=0.110.0
 uvicorn[standard]>=0.28.0
 requests>=2.31.0
 python-dotenv>=1.0.0
+gradio==6.26.0
 
 # ==========================================================
 # 2. LangChain & Model Ecosystem
