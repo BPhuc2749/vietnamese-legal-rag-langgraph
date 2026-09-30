@@ -30,3 +30,6 @@ logs/
 # Temporary files
 tmp/
 temp/
+# Private / local data
+data/
+vector_store/
