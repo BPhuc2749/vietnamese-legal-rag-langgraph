@@ -4,11 +4,15 @@ A Vietnamese legal question-answering system that plans evidence needs, retrieve
 
 > This project is an information-retrieval prototype, not a substitute for professional legal advice.
 
-## Demo
+## Live Demo
 
-![Gradio demo showing a Vietnamese legal question, grounded answer, and source citation](docs/images/demo-ui.png)
+[Open the public demo on Hugging Face Spaces](https://huggingface.co/spaces/BPhuc/vietnamese-legal-rag-langgraph).
 
-Docker Compose demo showing a Vietnamese legal question, grounded answer, and citation.
+The public demo uses a standalone Gradio application that calls the same LangGraph/RAG core directly. The primary local architecture remains Gradio → FastAPI → LangGraph/RAG, with Docker Compose orchestrating the frontend and backend services.
+
+![Local Gradio interface showing a Vietnamese legal question, grounded answer, and source citation](docs/images/demo-ui.png)
+
+Local Docker Compose interface showing a Vietnamese legal question, grounded answer, and source citation.
 
 ## Key Features
 
@@ -54,6 +58,8 @@ flowchart TD
 
 The graph is a single agent decomposed into reasoning nodes (planning, review, answer) and retrieval executors. The current graph sends `RAG`, `WEB`, and `HYBRID` paths directly to answer generation; evidence review controls web fallback only on the `AUTO` path.
 
+> **Deployment note:** The diagram describes the primary local/Docker path, where Gradio calls the FastAPI streaming endpoint. The Hugging Face Space uses a standalone Gradio entry point that invokes the same LangGraph/RAG core directly, without the FastAPI hop.
+
 ## Key Evaluation Results
 
 All reported values come from saved repository artifacts; no benchmark was rerun for this README.
@@ -66,7 +72,7 @@ All reported values come from saved repository artifacts; no benchmark was rerun
 
 ## Tech Stack
 
-Python 3.11, FastAPI, LangGraph, LangChain, Gemini (`gemini-3.1-flash-lite` in the current environment), Chroma, `bkai-foundation-models/vietnamese-bi-encoder`, BM25, FlashRank (`ms-marco-MultiBERT-L-12`), Tavily, Gradio, pytest, Docker, and Docker Compose.
+Python 3.11, FastAPI, LangGraph, LangChain, Gemini (configured through `LLM_MODEL`), Chroma, `bkai-foundation-models/vietnamese-bi-encoder`, BM25, FlashRank (`ms-marco-MultiBERT-L-12`), Tavily, Gradio, pytest, Docker, and Docker Compose.
 
 ## How It Works
 
@@ -168,5 +174,5 @@ Source PDFs, test data, indexes, `.env`, and detailed benchmark artifacts are ig
 - Add human-reviewed legal relevance and answer-quality evaluation with confidence intervals.
 - Improve citation granularity to article, clause, page, and highlighted evidence spans.
 - Make benchmark paths fully project-relative and store reproducible environment metadata.
-- Add authentication, rate limiting, audit logging, observability, and prompt-injection defenses.
-- Produce a separate production image for hosted deployment without raw data or benchmark assets.
+- Add authentication, rate limiting, audit logging, and prompt-injection defenses.
+- Add end-to-end observability and latency tracing across planning, retrieval, reranking, web fallback, and answer generation.
